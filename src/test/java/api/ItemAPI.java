@@ -99,11 +99,11 @@ public class ItemAPI {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item();
-        item.name = "Coffee";
-        item.price = 20.50f;
-        item.price_for_quantity = 1;
-        item.quantity_unit = "kg.";
+        Item item = new Item("Coffee", 20.50f, "kg.", 1);
+//        item.name = "Coffee";
+//        item.price = 20.50f;
+//        item.price_for_quantity = 1;
+//        item.quantity_unit = "kg.";
         Response createResp = itemAPI.createItem(item);
     }
 }

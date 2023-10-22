@@ -1,10 +1,16 @@
 package api;
 
-import java.io.InputStream;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.InputStream;
+@Getter
+@Setter
+@AllArgsConstructor
 public class Item {
-    public String name;
-    public Float price;
-    public String quantity_unit;
-    public Integer price_for_quantity;
+    private String name;
+    private Float price;
+    private String quantity_unit;
+    private Integer price_for_quantity;
 }

@@ -3,19 +3,21 @@ package api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.AllArgsConstructor;
 
 //Data Transfer Object (DTO)
 //Plain Old Java Object (POJO)
+@AllArgsConstructor
 public class Credentials {
-    public String email;
-    public String password;
-    public String domain;
+    private String email;
+    private String password;
+    private String domain;
 
-    public Credentials (String email, String password, String domain){
-        this.email = email;
-        this.password = password;
-        this.domain = domain;
-    }
+//    public Credentials (String email, String password, String domain){
+//        this.email = email;
+//        this.password = password;
+//        this.domain = domain;
+//    }
 
 
     public static void main(String[] args) {
