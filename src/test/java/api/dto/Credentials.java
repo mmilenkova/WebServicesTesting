@@ -1,4 +1,4 @@
-package api;
+package api.dto;
 
 
 import com.google.gson.Gson;

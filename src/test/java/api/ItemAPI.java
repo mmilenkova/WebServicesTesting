@@ -1,19 +1,18 @@
 package api;
 
+import api.dto.Credentials;
+import api.dto.Item;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class ItemAPI {
-    private String token;
+public class ItemAPI extends Request {
     private static final String ENDPOINT = "/items";
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private static final String BASE_URL = "https://api.inv.bg";
 
     public ItemAPI (String token){
-        this.token = token;
+        super(token);
     }
 
     /**
@@ -22,18 +21,8 @@ public class ItemAPI {
      * @return Response
      */
     public Response createItem(Item item){
-        String body = gson.toJson(item);
-        return RestAssured.given()
-                .log().all()
-                .auth().oauth2(token)
-                .baseUri(BASE_URL) //Sets the base uri for the request
-                .basePath("v3") //Sets the base path for the request
-                .header("User-Agent", "Good try")
-                .accept(ContentType.JSON) //Sets Accept header
-                .contentType(ContentType.JSON) //Sets Content-Type header
-                .body(body) //Sets the request body
-                .when().post(ENDPOINT)// Sets verb to POST and provide resource url
-                .prettyPeek(); //Prints response in a nice way
+        String body = GSON.toJson(item);
+        return post(ENDPOINT, body);
     }
 
     /**
@@ -42,64 +31,30 @@ public class ItemAPI {
      * @return Response
      */
     public Response deleteItem(int id){
-        return RestAssured.given()
-                .log().all()
-                .auth().oauth2(token)
-                .baseUri(BASE_URL) //Sets the base uri for the request
-                .basePath("v3") //Sets the base path for the request
-                .header("User-Agent", "Good try")
-                .accept(ContentType.JSON) //Sets Accept header
-                .contentType(ContentType.JSON) //Sets Content-Type header
-                .when().delete(ENDPOINT + "/" + id)// Sets verb to POST and provide resource url
-                .prettyPeek(); //Prints response in a nice way
+        return delete(ENDPOINT +"/"+ id);
     }
 
     public Response getItem(int id){
-        return RestAssured.given()
-                .log().all()
-                .auth().oauth2(token)
-                .baseUri(BASE_URL) //Sets the base uri for the request
-                .basePath("v3") //Sets the base path for the request
-                .header("User-Agent", "Good try")
-                .accept(ContentType.JSON) //Sets Accept header
-                .contentType(ContentType.JSON) //Sets Content-Type header
-                .when().get(ENDPOINT + "/" + id)// Sets verb to POST and provide resource url
-                .prettyPeek(); //Prints response in a nice way
+        return get(ENDPOINT + "/" + id);
     }
-
+    /**
+     * Update existing item
+     * @param item dta of the item
+     * @return Response
+     */
     public Response updateItem (Item item){
-        String body = gson.toJson(item);
-        return RestAssured.given()
-                .log().all()
-                .auth().oauth2(token)
-                .baseUri(BASE_URL) //Sets the base uri for the request
-                .basePath("v3") //Sets the base path for the request
-                .header("User-Agent", "Good try")
-                .accept(ContentType.JSON) //Sets Accept header
-                .contentType(ContentType.JSON) //Sets Content-Type header
-                .body(body) //Sets the request body
-                .when().post(ENDPOINT)// Sets verb to POST and provide resource url
-                .prettyPeek(); //Prints response in a nice way
+        return patch(ENDPOINT, GSON.toJson(item));
     }
 
     public Response getItems(){
-        return RestAssured.given()
-                .log().all()
-                .auth().oauth2(token)
-                .baseUri(BASE_URL) //Sets the base uri for the request
-                .basePath("v3") //Sets the base path for the request
-                .header("User-Agent", "Good try")
-                .accept(ContentType.JSON) //Sets Accept header
-                .contentType(ContentType.JSON) //Sets Content-Type header
-                .when().get(ENDPOINT)// Sets verb to POST and provide resource url
-                .prettyPeek(); //Prints response in a nice way
+        return get(ENDPOINT);
     }
 
     public static void main(String[] args) {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item("Coffee", 20.50f, "kg.", 1);
+        Item item = new Item("CoffeeTest", 20.50f, "kg.", 1);
 //        item.name = "Coffee";
 //        item.price = 20.50f;
 //        item.price_for_quantity = 1;

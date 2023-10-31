@@ -1,12 +1,12 @@
 package api;
 
+import api.dto.Credentials;
+import api.dto.Item;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 public class ItemAPITest {
 
@@ -17,11 +17,7 @@ public class ItemAPITest {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item();
-        item.name = "Coffee_" + LocalDateTime.now();
-        item.price = 10.50f;
-        item.price_for_quantity = 1;
-        item.quantity_unit = "kg.";
+        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
     }
@@ -44,11 +40,7 @@ public class ItemAPITest {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item();
-        item.name = "Coffee_" + LocalDateTime.now();
-        item.price = 10.50f;
-        item.price_for_quantity = 1;
-        item.quantity_unit = "kg.";
+        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");
@@ -64,11 +56,7 @@ public class ItemAPITest {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item();
-        item.name = "Coffee_Update" + LocalDateTime.now();
-        item.price = 10.50f;
-        item.price_for_quantity = 1;
-        item.quantity_unit = "kg.";
+        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");
@@ -83,11 +71,7 @@ public class ItemAPITest {
         Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
         String token = LoginAPI.obtainToken(credentials);
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item();
-        item.name = "Coffee_" + LocalDateTime.now();
-        item.price = 10.50f;
-        item.price_for_quantity = 1;
-        item.quantity_unit = "kg.";
+        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");

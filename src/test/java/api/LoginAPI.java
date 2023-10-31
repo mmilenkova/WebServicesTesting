@@ -1,5 +1,6 @@
 package api;
 
+import api.dto.Credentials;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
