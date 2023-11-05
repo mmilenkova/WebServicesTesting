@@ -51,9 +51,7 @@ public class ItemAPI extends Request {
     }
 
     public static void main(String[] args) {
-        Credentials credentials = new Credentials("mm.milenkova@gmail.com", "q2w3e4r5", "marieta-ood");
-        String token = LoginAPI.obtainToken(credentials);
-        ItemAPI itemAPI = new ItemAPI(token);
+        ItemAPI itemAPI = new ItemAPI("");
         Item item = new Item("CoffeeTest", 20.50f, "kg.", 1);
 //        item.name = "Coffee";
 //        item.price = 20.50f;
