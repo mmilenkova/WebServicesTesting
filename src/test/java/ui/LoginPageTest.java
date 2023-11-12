@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import ui.pages.HomePage;
+import ui.pages.LoginPage;
 
 import java.time.Duration;
 
@@ -151,4 +153,16 @@ public class LoginPageTest {
         //Check email inbox for new email and extract the link from the text
         //This will be implemented in the next lecture because it requires communication with external service
     }
+
+    @Test
+    @DisplayName( "Can login using POM")
+    public void canLoginWithValidCredentialsPOM(){
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.navigate();
+        loginPage.login("mm.milenkova@gmail.com","q2w3e4r5");
+        //Assert that login was successful
+        HomePage homePage = new HomePage(driver);
+        Assertions.assertEquals("mm.milenkova@gmail.com", homePage.getLoggUser());
+    }
+
 }

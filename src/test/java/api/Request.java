@@ -28,19 +28,19 @@ public class Request {
                 .contentType(ContentType.JSON); //Sets Content-Type header
     }
 
-    public Response get(String endpoint){
+    protected Response get(String endpoint){
         return baseRequest().get(endpoint).prettyPeek();
     }
 
-    public Response post(String endpoint, String body){
+    protected Response post(String endpoint, String body){
         return baseRequest().body(body).post(endpoint).prettyPeek();
     }
 
-    public Response delete(String endpoint){
+    protected Response delete(String endpoint){
         return baseRequest().delete(endpoint).prettyPeek();
     }
 
-    public Response patch(String endpoint, String body){
+    protected Response patch(String endpoint, String body){
         return baseRequest().body(body).patch(endpoint).prettyPeek();
     }
 }

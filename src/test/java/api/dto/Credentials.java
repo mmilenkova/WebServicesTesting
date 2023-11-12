@@ -13,11 +13,8 @@ public class Credentials {
     private String password;
     private String domain;
 
-//    public Credentials (String email, String password, String domain){
-//        this.email = email;
-//        this.password = password;
-//        this.domain = domain;
-//    }
+    public Credentials(String email, String password) {
+    }
 
 
     public static void main(String[] args) {

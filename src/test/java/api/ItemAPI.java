@@ -1,26 +1,31 @@
 package api;
 
+import api.dto.Client;
 import api.dto.Credentials;
 import api.dto.Item;
+import api.dto.ItemList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.util.List;
+
 public class ItemAPI extends Request {
     private static final String ENDPOINT = "/items";
 
-    public ItemAPI (String token){
+    public ItemAPI(String token) {
         super(token);
     }
 
     /**
      * Create items
+     *
      * @param item item info
      * @return Response
      */
-    public Response createItem(Item item){
+    public Response createItem(Item item) {
         String body = GSON.toJson(item);
         return post(ENDPOINT, body);
     }
@@ -30,33 +35,36 @@ public class ItemAPI extends Request {
      * @param id id
      * @return Response
      */
-    public Response deleteItem(int id){
-        return delete(ENDPOINT +"/"+ id);
+    public Response deleteItem(int id) {
+        return delete(ENDPOINT + "/" + id);
     }
 
-    public Response getItem(int id){
+    public Response getItem(int id) {
         return get(ENDPOINT + "/" + id);
     }
+
     /**
      * Update existing item
      * @param item dta of the item
      * @return Response
      */
-    public Response updateItem (Item item){
+    public Response updateItem(Item item) {
         return patch(ENDPOINT, GSON.toJson(item));
     }
 
-    public Response getItems(){
+    public Response getItems() {
         return get(ENDPOINT);
     }
 
     public static void main(String[] args) {
         ItemAPI itemAPI = new ItemAPI("");
-        Item item = new Item("CoffeeTest", 20.50f, "kg.", 1);
-//        item.name = "Coffee";
-//        item.price = 20.50f;
-//        item.price_for_quantity = 1;
-//        item.quantity_unit = "kg.";
+        Item item = Item.builder().build();
         Response createResp = itemAPI.createItem(item);
+    }
+
+    public void deleteAll() {
+        String body = getItems().asString();
+        ItemList items = GSON.fromJson(body, ItemList.class);
+        items.getItems().forEach(item -> deleteItem(item.getId()));
     }
 }

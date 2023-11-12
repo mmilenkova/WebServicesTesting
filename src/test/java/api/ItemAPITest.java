@@ -27,7 +27,7 @@ public class ItemAPITest {
     @DisplayName("Can create new item")
     public void canCreateNewItem(){
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item("Coffee_" + LocalDateTime.now(), 20.50f,"kg.", 1);;
+        Item item = Item.builder().build();
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         //Extract id
@@ -57,7 +57,7 @@ public class ItemAPITest {
     @DisplayName("Can get single item")
     public void canGetSingleItem(){
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
+        Item item = Item.builder().build();
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");
@@ -71,7 +71,7 @@ public class ItemAPITest {
     @DisplayName("Can update single item")
     public void canUpdateSingleItem(){
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
+        Item item = Item.builder().build();
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");
@@ -84,7 +84,7 @@ public class ItemAPITest {
     @DisplayName("Can delete single item")
     public void canDeleteSingleItem(){
         ItemAPI itemAPI = new ItemAPI(token);
-        Item item = new Item("Coffee", 20.50f, "kg.", 1);;
+        Item item = Item.builder().build();
         Response createResp = itemAPI.createItem(item);
         Assertions.assertEquals(201, createResp.statusCode());
         int id = createResp.then().extract().jsonPath().getInt("id");
